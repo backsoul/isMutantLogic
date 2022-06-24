@@ -8,20 +8,20 @@ noMutant = [
 ]
 #case 1: first element
 #HORIZONTAL,vertical,oblicuo
-#ATGCGA,ACTAGT,AACCG
+#ATGCGA,ACTAGT,AAACCG
 #case 2: last element
 #HORIZONTAL,vertical,oblicuo
 #AGCGTA,ACTGAG,AGTACT
 #TODO: search in one position after - missing
-adn = ['ATGCGA']
+adn = ['GCCAAA']
 adn1 = ['ATGCGA','CAGTGC','TTATGT','AGAAGG','ACTGAG','GGTGCT']
 def existnoMutant(sequence):
     if len(sequence) == 6:
         for a in sequence:
             for idxnm,nm in enumerate(noMutant):
                 for idxn,n in enumerate(nm):
-                    if  (a == n and idxn == 0 and idxnm == 0) or (a == n and idxn == 5 and idxnm == 5):
-                        if idxn == 0 and idxnm == 0:
+                    if  (a == n and idxn == 0) or (a == n and idxn == 5):
+                        if idxn == 0:
                             #SEARCH HORIZONTAL
                             mutant = ''.join([str(item)for item in noMutant[idxnm]])
                             if mutant == sequence:
@@ -45,7 +45,7 @@ def existnoMutant(sequence):
                                 return True
                         else:
                             #SEARCH HORIZONTAL INVERT
-                            mutant = ''.join([str(item)for item in noMutant[0]])[::-1]
+                            mutant = ''.join([str(item)for item in noMutant[5]])[::-1]
                             if mutant == sequence:
                                 print(mutant,sequence)
                                 return True
@@ -56,12 +56,12 @@ def existnoMutant(sequence):
                                 return True
                             #SEARCH OBLICUA INVERT
                             mutant = []
-                            i = 5
+                            i = 0
                             for idxn,n in enumerate(noMutant):
                                 mutant.append(n[i])
-                                i -= 1
+                                i += 1
                                 continue
-                            mutant = ''.join([str(item)for item in mutant])
+                            mutant = ''.join([str(item)for item in mutant])[::-1]
                             if mutant == sequence:
                                 print(mutant,sequence)
                                 return True
